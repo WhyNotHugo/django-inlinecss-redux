@@ -2,8 +2,6 @@ from django import template
 
 from django.utils.encoding import smart_text
 from django.contrib.staticfiles import finders
-from django.contrib.staticfiles.storage import staticfiles_storage
-from django.conf import settings
 
 from django_inlinecss import conf
 
@@ -22,10 +20,7 @@ class InlineCssNode(template.Node):
             path = expression.resolve(context, True)
             if path is not None:
                 path = smart_text(path)
-            if settings.DEBUG:
-                expanded_path = finders.find(path)
-            else:
-                expanded_path = staticfiles_storage.path(path)
+            expanded_path = finders.find(path)
 
             with open(expanded_path) as css_file:
                 css = ''.join((css, css_file.read()))
