@@ -2,7 +2,6 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-inlinecss-redux',
-    version="0.1.2",
     description='A Django app useful for inlining CSS (primarily for e-mails)',
     long_description=open('README.md').read(),
     author='Philip Kimmey',
@@ -15,6 +14,11 @@ setup(
     include_package_data=True,
     zip_safe=False,
     keywords=['html', 'css', 'inline', 'style', 'email'],
+    use_scm_version={
+        'version_scheme': 'post-release',
+        'write_to': 'django_inlinecss/version.py',
+    },
+    setup_requires=['setuptools_scm'],
     classifiers=[
         'Environment :: Other Environment',
         'Environment :: Web Environment',
