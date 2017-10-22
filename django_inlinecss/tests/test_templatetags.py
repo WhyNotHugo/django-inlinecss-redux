@@ -170,10 +170,10 @@ class DebugModeStaticfilesTests(TestCase):
         template.render(Context({}))
         find.assert_called_once_with("foobar.css")
 
-    @patch('django.contrib.staticfiles.storage.staticfiles_storage.path')
-    def test_non_debug_mode_uses_staticfiles_storage(self, path):
+    @patch('django.contrib.staticfiles.finders.find')
+    def test_non_debug_mode_uses_staticfiles_storage(self, find):
         full_path = os.path.join(TESTS_STATIC_DIR, "foobar.css")
-        path.return_value = full_path
+        find.return_value = full_path
         template = get_template('single_staticfiles_css.html')
         template.render(Context({}))
-        path.assert_called_once_with("foobar.css")
+        find.assert_called_once_with("foobar.css")
